@@ -54,7 +54,7 @@ class ImageNetLightningModel(LightningModule):
         self.data_path = data_path
         self.batch_size = batch_size
         self.workers = workers
-        self.model = models.__dict__[self.arch](pretrained=self.pretrained)
+        self.model = models.__dict__[self.arch](pretrained=self.pretrained, num_classes = 100)
 
     def forward(self, x):
         return self.model(x)
@@ -208,7 +208,7 @@ def main(args: Namespace) -> None:
 def run_cli():
     parent_parser = ArgumentParser(add_help=False)
     parent_parser = pl.Trainer.add_argparse_args(parent_parser)
-    parent_parser.add_argument("--data-path", default = os.getcwd() metavar="DIR", type=str, help="path to dataset")
+    parent_parser.add_argument("--data-path", default = os.getcwd(), metavar="DIR", type=str, help="path to dataset")
     parent_parser.add_argument(
         "-e", "--evaluate", dest="evaluate", action="store_true", help="evaluate model on validation set"
     )
